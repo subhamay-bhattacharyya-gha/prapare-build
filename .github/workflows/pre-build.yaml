@@ -1,4 +1,4 @@
-name: Prepare CloudFormation Build
+name: Pre Build
 
 on:
   workflow_call:
@@ -43,8 +43,8 @@ permissions:
   # pull-requests: write # This is required for gh bot to comment PR
  
 jobs:
-  prepare-build:
-    name: "Prepare CloudFormation Build"
+  pre-build:
+    name: "Pre Build"
     runs-on: ubuntu-latest
     # environment: ${{ inputs.github-env }}
     defaults:
