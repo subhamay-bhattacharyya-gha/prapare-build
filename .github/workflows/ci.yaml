@@ -1,0 +1,36 @@
+name: CI Pipeline for CloudFormation
+
+on:
+  workflow_call:
+    # inputs:
+    #   deploy-reviewer-test:
+    #     description: Specifies the GitHub User Id who can approve test deployment.
+    #     required: true
+    #     type: number
+    #   deploy-reviewer-prod:
+    #     description: Specifies the GitHub User Id who can approve prod deployment.
+    #     required: true
+    #     type: number
+    #   pr-approver:
+    #     description: Specifies the GitHub User who can approve a Pull Request.
+    #     required: true
+    #     type: string
+    # secrets:
+    #   git-token:
+    #     required: true
+
+# permissions:
+#   id-token: write                       # This is required for aws oidc connection
+#   contents: write                       # This is required for actions/checkout
+#   pull-requests: write                  # This is required for gh bot to comment PR
+#   issues: write
+
+jobs:
+  prepare-build:
+    uses: ./.github/workflows/build.yaml
+    # with:
+    #   deploy-reviewer-test: ${{ inputs.deploy-reviewer-test }}
+    #   deploy-reviewer-prod: ${{ inputs.deploy-reviewer-prod }}
+    #   pr-approver: ${{ inputs.pr-approver }}
+    # secrets:
+    #   git-token: ${{ secrets.git-token }}

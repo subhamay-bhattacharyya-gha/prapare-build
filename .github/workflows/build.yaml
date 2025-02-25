@@ -1,0 +1,66 @@
+name: Prepare CloudFormation Build
+
+on:
+  workflow_call:
+    # inputs:
+    #   github-env:
+    #     description: 'Specifies the GitHub deployment environment.'
+    #     required: false
+    #     type: string
+    #     default: "devl"
+      # terraform-ver:
+      #   description: 'Specifies version of Terraform to use. e.g: 1.1.0 Default=latest.'
+      #   required: false
+      #   type: string
+      #   default: latest
+      # tfvar-file:
+      #   description: 'Specifies the environment specific tfvar file e.g: devl.terraform.tfvars'
+      #   required: true
+      #   type: string
+      #   default: devl.terraform.tfvars
+      # issue-number:
+      #   description: 'Specifies the GitHub Issue Number.'
+      #   required: true
+      #   type: string
+      # aws-region:
+      #   description: 'Specifies the AWS Region.'
+      #   required: true
+      #   type: string
+      # aws-role-arn:
+      #   description: 'Specifies the AWS IAM Role arn.'
+      #   required: true
+      #   type: string
+      # aws-tf-state-bucket-name:
+      #   description: 'Specifies the AWS S3 bucket name.'
+      #   required: true
+      #   type: string
+    # outputs:
+    #   issue-number:
+    #     description: "Issue id associated with the feature branch"
+    #     value: ${{ jobs.plan.outputs.issue-number }}
+permissions:
+  contents: read # This is required for actions/checkout
+  # pull-requests: write # This is required for gh bot to comment PR
+ 
+jobs:
+  prepare-build:
+    name: "Prepare CloudFormation Build"
+    runs-on: ubuntu-latest
+    # environment: ${{ inputs.github-env }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+
+    steps:
+      - name: Git checkout
+        id: git-checkout
+        uses: actions/checkout@v4
+
+      - name: Scan Repository for AWS Services
+        id: scan-repo
+        uses: subhamay-bhattacharyya-gha/RepoServiceScanner/.github/actions@main
+
+      - name: List Files
+        run: ls -la
+
